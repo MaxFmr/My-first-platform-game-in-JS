@@ -46,8 +46,8 @@ class Platform {
 
 const player = new Player();
 const platforms = [
-  new Platform({ x: 200, y: 100 }),
-  new Platform({ x: 500, y: 200 }),
+  new Platform({ x: 500, y: 600 }),
+  new Platform({ x: 200, y: 400 }),
 ];
 
 const keys = {
@@ -58,6 +58,8 @@ const keys = {
     pressed: false,
   },
 };
+
+let scrollOffset = 0;
 
 function animate() {
   requestAnimationFrame(animate);
@@ -75,16 +77,19 @@ function animate() {
   } else {
     player.velocity.x = 0;
     if (keys.right.pressed) {
+      scrollOffset += 5;
+
       platforms.forEach((platform) => {
         platform.position.x -= 5;
       });
     } else if (keys.left.pressed) {
+      scrollOffset -= 5;
+
       platforms.forEach((platform) => {
         platform.position.x += 5;
       });
     }
   }
-
   //platform detection
 
   platforms.forEach((platform) => {
@@ -97,7 +102,10 @@ function animate() {
     )
       player.velocity.y = 0;
   });
+  if (scrollOffset > 1000) {
+  }
 }
+
 animate();
 
 addEventListener('keydown', ({ key }) => {
@@ -116,11 +124,11 @@ addEventListener('keydown', ({ key }) => {
       break;
     case 'ArrowUp':
       console.log('u');
-      player.velocity.y -= 25;
+      player.velocity.y -= 18;
       break;
     case ' ':
       console.log('u');
-      player.velocity.y -= 25;
+      player.velocity.y -= 18;
       break;
   }
 });
